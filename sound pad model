@@ -1,0 +1,7 @@
+class SoundPad {
+  final String soundFile;
+  final Color color;
+  bool isActive;
+
+  SoundPad({required this.soundFile, required this.color, this.isActive = false});
+}
