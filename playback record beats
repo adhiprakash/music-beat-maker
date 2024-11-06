@@ -1,0 +1,4 @@
+void _playRecordedBeat() async {
+  if (_isRecording) return;
+  await _soundPlayer.startPlayer(fromURI: 'recorded_beat.aac');
+}
