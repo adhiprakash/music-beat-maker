@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_sound/flutter_sound.dart';
+import 'models/sound_pad.dart';
+import 'widgets/beat_pad.dart';
+
+class BeatMakerScreen extends StatefulWidget {
+  @override
+  _BeatMakerScreenState createState() => _BeatMakerScreenState();
+}
+
+class _BeatMakerScreenState extends State<BeatMakerScreen> {
+  final FlutterSoundPlayer _soundPlayer = FlutterSoundPlayer();
+
+  @override
+  void initState() {
+    super.initState();
+    _soundPlayer.openAudioSession();
+  }
+
+  @override
+  void dispose() {
+    _soundPlayer.closeAudioSession();
+    super.dispose();
+  }
+
+  void _playSound(String soundFile) async {
+    await _soundPlayer.startPlayer(fromURI: soundFile);
+  }
+
+  void _onPadTapped(SoundPad pad) {
+    setState(() {
+      pad.isActive = true;
+    });
+    _playSound(pad.soundFile);
+    Future.delayed(Duration(milliseconds: 200), () {
+      setState(() {
+        pad.isActive = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Beat Maker')),
+      body: GridView.builder(
+        padding: EdgeInsets.all(8),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+        ),
+        itemCount: soundPads.length,
+        itemBuilder: (context, index) {
+          final pad = soundPads[index];
+          return BeatPad(
+            soundPad: pad,
+            onTap: () => _onPadTapped(pad),
+          );
+        },
+      ),
+    );
+  }
+}
