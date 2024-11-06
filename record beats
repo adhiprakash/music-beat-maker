@@ -1,0 +1,46 @@
+class BeatMakerScreen extends StatefulWidget {
+  @override
+  _BeatMakerScreenState createState() => _BeatMakerScreenState();
+}
+
+class _BeatMakerScreenState extends State<BeatMakerScreen> {
+  final FlutterSoundRecorder _recorder = FlutterSoundRecorder();
+  bool _isRecording = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _recorder.openAudioSession();
+  }
+
+  @override
+  void dispose() {
+    _recorder.closeAudioSession();
+    super.dispose();
+  }
+
+  void _toggleRecording() async {
+    if (_isRecording) {
+      await _recorder.stopRecorder();
+    } else {
+      await _recorder.startRecorder(toFile: 'recorded_beat.aac');
+    }
+    setState(() => _isRecording = !_isRecording);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Beat Maker')),
+      body: Column(
+        children: [
+          Expanded(child: /* Beat pad grid here */),
+          ElevatedButton(
+            onPressed: _toggleRecording,
+            child: Text(_isRecording ? 'Stop Recording' : 'Record Beat'),
+          ),
+        ],
+      ),
+    );
+  }
+}
