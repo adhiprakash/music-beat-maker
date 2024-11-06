@@ -1,0 +1,6 @@
+final List<SoundPad> soundPads = [
+  SoundPad(soundFile: 'sounds/drum.wav', color: Colors.red),
+  SoundPad(soundFile: 'sounds/bass.wav', color: Colors.blue),
+  SoundPad(soundFile: 'sounds/melody.wav', color: Colors.green),
+  SoundPad(soundFile: 'sounds/effect.wav', color: Colors.orange),
+];
