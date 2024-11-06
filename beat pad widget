@@ -1,0 +1,23 @@
+import 'package:flutter/material.dart';
+import 'models/sound_pad.dart';
+
+class BeatPad extends StatelessWidget {
+  final SoundPad soundPad;
+  final VoidCallback onTap;
+
+  BeatPad({required this.soundPad, required this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: Duration(milliseconds: 100),
+        decoration: BoxDecoration(
+          color: soundPad.isActive ? soundPad.color.withOpacity(0.6) : soundPad.color,
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
+  }
+}
