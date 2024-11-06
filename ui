@@ -1,0 +1,4 @@
+ElevatedButton(
+  onPressed: _playRecordedBeat,
+  child: Text('Play Recorded Beat'),
+)
